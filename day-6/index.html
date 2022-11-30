@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>OOPS</h1>
+  </body>
+</html>
+
+<script>
+  // OOPS:-
+  // object oriented programming
+
+  // 1. inheritance
+  // 2. encapsulation
+  // 3. abstraction
+  // 4. polymorphism
+
+  // task:-
+
+  // create a class rectangle
+  // which will create rectangle object
+  // it will have length and breadth
+  // and it will have a method which
+  // will return the area of rectangle
+
+  // 5 Mins
+
+  //   class Rectangle {
+  //     constructor(l, b) {
+  //       this.length = l;
+  //       this.breadth = b;
+  //     }
+  //     area() {
+  //       return this.length * this.breadth;
+  //     }
+  //   }
+  //   let r1 = new Rectangle(10, 20);
+  //   console.log(r1.area());
+
+  // 1. inheritance
+
+  //   class Car {
+  //     constructor(brand, engine, wheels) {
+  //       this.brand = brand;
+  //       this.engine = engine;
+  //       this.wheels = wheels;
+  //     }
+  //   }
+  //   // SUV on topo of Car
+
+  //   class SUV extends Car {
+  //     constructor(brand, engine, wheels) {
+  //       super(brand, engine, wheels);
+  //     }
+  //   }
+  //   let s1 = new SUV("Tata", "1000 CC", "Alloy");
+  //   console.log(s1);
+
+  //   Multiple inheritance
+  // Multilevel inheritance
+
+  //   A drive (200 kmph)-->B-->C-->D
+  // E drive (300 kmph)-->-->B
+
+  //2. Encapsulation
+
+  //   class User {
+  //     #score;
+  //     constructor(name, score) {
+  //       this.name = name;
+  //       this.#score = score;
+  //     }
+  //     get marks() {
+  //       return this.#score;
+  //     }
+  //     // set marks(newValue){
+  //     //     this.#score=newValue
+  //     // }
+  //   }
+  //   let u1 = new User("Vinit", 9);
+  //   u1.marks=5;
+  //   console.log(u1.score);
+
+  //   3.Abstraction
+
+  //   class User {
+  //     constructor() {
+  //       if (this.constructor === User) {
+  //         throw new Error("Cannot Create Object");
+  //       }
+  //     }
+  //   }
+  //   // should be able to inherit
+  //   // but he should not be able to create object
+
+  //   class Student extends User {
+  //     constructor() {
+  //       super();
+  //     }
+  //   }
+  //   let s1 = new Student();
+  //   console.log(s1);
+
+  // 4.Polymorphism
+
+  // A drive (400)-->B drive(300)-->C drive(100)
+
+//   class car1 {
+//     drive() {
+//       console.log(400);
+//     }
+//   }
+//   //   let c1=new car1()
+//   //   console.log(c1);
+
+//   class car2 extends car1 {
+//     constructor() {
+//       super();
+//     }
+//     drive() {
+//       console.log(300);
+//     }
+//   }
+//   class car3 extends car2 {
+//     constructor() {
+//       super();
+//     }
+//     drive() {
+//       console.log(100);
+//     }
+//   }
+
+//   let c = new car3();
+//   c.drive();
+</script>

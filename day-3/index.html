@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Promises</h1>
+  </body>
+</html>
+
+<script>
+  // Promises
+
+  // Pending
+  // 90%:--> Cycle:--> Fullfilled
+  // dont get 90%:--> Chappal:--> Rejected
+
+  // Anything that takes time and can be rejected or fullfilled
+  // Can be considered as promise
+
+  // setTimeout
+  // fetch
+  // ----------------------------------------------
+  // let myPromise = new Promise((resolve, reject) => {
+  //   resolve("Promise Fullfilled");
+  // });
+  // --------------------------------------------
+  //   console.log(myPromise);
+
+  //   .then & .catch
+  // async await
+
+  //   myPromise
+  //     .then((res) => {
+  //       console.log(res); //Resolved
+  //     })
+  //     .catch((err) => {
+  //       console.log(err); //Rejected
+  //     })
+  //     .finally(() => {
+  //       console.log("Finally"); //Pending/always
+  //     });
+
+  // Async Await
+
+  //   let result = async () => {
+  //     try {
+  //       let r = await myPromise;
+  //       console.log(r);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       console.log("Finally");
+  //     }
+  //   };
+  //   result();
+  // ---------------------------------------------
+  // let sleep = (delay) => {
+  //   return new Promise((res, rej) => {
+  //     if (typeof delay !== "number") {
+  //       rej("Reject");
+  //     }
+  //     setTimeout(() => {
+  //       res("Resolved");
+  //     }, delay);
+  //   });
+  // };
+
+  // sleep(3000)
+  //   .then((res) => console.log(res))
+  //   .catch((err) => console.log(err));
+  // ---------------------------------------------
+  // Task
+
+  // create a sleep function
+  // will take time (delay) in ms as param
+  // it will return a promise
+  // which will resolve after delay sec // use setTimeout
+  // if the delay parameter is not a number reject the promise
+  // use typeOf for checking number
+
+  // you have 7 mins try iy
+
+  // train ticket waiting ticket
+  // confirmed/cancelled
+  // it takes time
+
+  let seat = 100;
+  let waiting = 102; //107,106,105...100
+
+  setInterval(() => {
+    waiting--;
+  }, 2000);
+
+  let bookTicket = () => {
+    return new Promise((res, rej) => {
+      setInterval(() => {
+        console.log(`Current Waiting:${waiting}`);
+        if (waiting <= seat) {
+          res("Ticket Confirmed");
+        }
+      }, 1000);
+    });
+  };
+
+  // bookTicket().then((res) => console.log(res));
+</script>

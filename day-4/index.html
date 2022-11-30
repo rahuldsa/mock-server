@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Fetch</h1>
+  </body>
+</html>
+
+<script>
+  // address:-URL
+  // car/vehicle:-fetch
+
+  fetch("https://jsonmock.hackerrank.com/api/articles")
+    .then((res) => {
+      return res.json();
+      //   console.log(res);
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log("Finally");
+    });
+
+    
+  //   let res = fetch(`${url}`)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  //     .finally(() => {
+  //       console.log("Finally");
+  //     });
+
+
+  // .then & .catch
+  // async await
+
+  // create a function that will return an array
+  // which will contain all the 41 data
+
+  let getData1 = async () => {
+    let result = [];
+    let res = await fetch(`${url}`);
+  };
+
+  // no matter what the async function returning
+  // it will always be a promise
+
+  // DRY-donot repeat yourself
+
+  let arr_of_promises = [];
+  for (let i = 0; i < 5; i++) {
+    let f = fetch(`${url}?page=${i + 1}`).then((res) => res.json());
+    arr_of_promises.push(f);
+  }
+
+  // 1.fetch
+  // 2.res.json()
+
+  let getData = async () => {
+    let res = await Promise.all(arr_of_promises);
+    console.log(res);
+  };
+  getData();
+</script>

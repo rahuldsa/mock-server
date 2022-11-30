@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Crud</h1>
+    <input type="text" id="todo" placeholder="Todo" />
+    <button id="myBtn" onclick="addTodo()">Add Todo</button>
+
+    <!-- <input id="myInput" value="Some text.."> -->
+    <!-- <button id="myBtn" >Button</button> -->
+    <div id="container"></div>
+  </body>
+</html>
+
+<script>
+  // npm init / npm init -y
+  // npm i json-server
+  // json-server --watch db.json --port 8000
+
+  // http://localhost:3000 base url --> db.json
+  // comments end point
+  // query param - returns data in particular format
+
+  // http://localhost:3000/comments
+
+  //   onkeypress
+  // onkeyup
+  // onkeydown
+
+  // uuid
+
+  data = "";
+  var input = document.getElementById("todo");
+  input.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      data = document.getElementById("todo").value;
+      document.querySelector("h1").innerText += data + "\n";
+    }
+  });
+
+  const url = `http://localhost:3000/todo`;
+
+  window.onload = () => {
+    getData();
+  };
+
+  let getData = async () => {
+    let res = await fetch(url);
+    res = await res.json();
+    renderDom(res);
+  };
+
+  let addTodo = async () => {
+    let task = document.getElementById("todo").value;
+    let todo = {
+      title: task,
+      status: false,
+      id: Date.now() + task,
+    };
+    let res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(todo),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    getData();
+  };
+
+  let el = (tag) => {
+    return document.createElement(tag);
+  };
+
+  let card = (todo) => {
+    let div = document.createElement("div");
+    let h3 = el("h3");
+    let p = el("p");
+    let delBtn = el("button");
+    let togBtn = el("button");
+
+    h3.innerText = todo.title;
+    p.innerText = todo.status;
+    delBtn.innerText = "Delete";
+    togBtn.innerText = "Toggle";
+
+    delBtn.onclick = () => {
+      deleteTodo(todo.id);
+    };
+
+    togBtn.onclick = () => {
+      toggle(todo.id);
+    };
+
+    div.append(h3, p, delBtn, togBtn);
+    return div;
+  };
+
+  let renderDom = (data) => {
+    let cont = document.getElementById("container");
+    cont.innerHTML = null;
+
+    data.forEach((el) => {
+      let todo = card(el);
+      cont.append(todo);
+    });
+  };
+
+  let toggle = async (id) => {
+    let res = await fetch(`${url}/${id}`);
+    res = await res.json();
+
+    // console.log(res);
+
+    let data = { status: !res.status };
+
+    await fetch(`${url}/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    getData();
+  };
+
+  let deleteTodo = async (id) => {
+    await fetch(`${url}/${id}`, {
+      method: "DELETE",
+    });
+    getData();
+  };
+
+  // get
+  // crud
+  // create--post
+  // read--get
+  // update--put/patch
+  // delete--delete
+
+  // put and patch
+  /*
+  {
+    title:"abc",
+    status:false,
+    id:ekjfn
+  }
+  */
+</script>

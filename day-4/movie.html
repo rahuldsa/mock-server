@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="query" oninput="debounce(1000)" />
+  </body>
+</html>
+
+<script>
+  let search = async () => {
+    let query = document.getElementById("query").value;
+    let res = await fetch(`http://www.omdbapi.com/?apikey=4aa6be90&s=${query}`);
+
+    console.log(res);
+  };
+  let id;
+
+  let debounce = (delay) => {
+    if (id) {
+      clearTimeout(id);
+    }
+    id = setTimeout(() => {
+      console.log(id);
+      search();
+    }, delay);
+  };
+</script>

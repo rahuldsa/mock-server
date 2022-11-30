@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Train Ticket</h1>
+    <input type="text" id="name" placeholder="Name" />
+    <button onclick="bookTicket()">Book</button>
+  </body>
+</html>
+
+<script>
+  let seat = 100;
+
+  let waiting = 104;
+
+  setInterval(() => {
+    waiting--;
+  }, 3000);
+
+  let bookTicket = () => {
+    let name = document.getElementById("name").value;
+    let p = new Promise((res, rej) => {
+      setInterval(() => {
+        // console.log(`Current Waiting:${waiting}`);
+        if (waiting <= seat) {
+          res("Ticket Confirmed");
+        }
+      }, 1000);
+    });
+    p.then((res) => {
+      alert(`${name} Your Ticket is confirmed!`);
+    });
+  };
+</script>

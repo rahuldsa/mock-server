@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Constructor Function</h1>
+    <h1>Prototype Inheritance</h1>
+  </body>
+</html>
+
+<script>
+  // contructor function
+
+  // 1.let obj={}; // object literal
+  // 2.constructor function
+  // 3.new object()
+  // 4.class
+  // 5.object.create()
+
+  // create a constructor function
+  // which will accept name,price and image of product
+  // and will create a product object
+
+  // 5 mins
+
+  //   function Product(name, price, image) {
+  //     this.name = name;
+  //     this.price = price;
+  //     this.image = image;
+  //   }
+
+  //   let p1 = new Product("Nike", 2000, "abc.com");
+  //   console.log(p1);
+
+  // this :- refers to parent object
+  // new :- returns object out of the function
+
+  // console.log(this); // global object
+
+  //   function a() {
+  //     console.log(this); //global object
+  //   }
+  //   a();
+
+  //   let Product=(name,price,image)=>{
+  //     this.name=name;
+  //     this.price=price;
+  //     this.image=image;
+  //   }
+  //   let p1=new Product("Nike",2000,"abc.com");
+
+  //   let Product = () => {
+  //     console.log(this);
+  //   };
+  //   Product();
+
+  //   Hoisting
+
+  //   function a() {
+  //     let b = 10;
+  //     console.log(a);
+  //   }
+  //   a();
+  //   console.log(b);
+
+  // 1.object.create() :-important
+  /*------------------------------------------*/
+  //   let grandParent = {
+  //     property: "3 Billion$",
+  //   };
+
+  //   let parent = Object.create(grandParent);
+  //   parent.property = "2 Billion$";
+  //   //   let = Object.create(parent);
+
+  //   let child = Object.create(parent);
+  //   child.property = "150RS";
+
+  //   console.log(child.property);
+  // console.log(child.additionalProperty);
+
+  /*------------------------------------------*/
+
+  // 1.child.parent.property
+  // 2.child.property
+
+  // 1.{}
+  // 2.object with parent keys
+
+  // inheritance
+  // prototype chaining
+
+  //   let arr = new Array(5);
+  //   console.log(arr);
+
+  //   function Product(name, price, image) {
+  //     this.name = name;
+  //     this.price = price;
+  //     this.image = image;
+  //   }
+
+  //   Product.prototype.print = () => {
+  //     console.log(this.name);
+  //   };
+  //   let p1 = new Product("Nike", 2000, "abc.com");
+  //   p1.print();
+
+  // map
+  // filter
+  // reduce
+  // forEach
+
+  //   Array.prototype.myFunction = () => {
+  //     console.log("Say Hello");
+  //   };
+
+  //  -----------------------------------------------
+  // let arr = [0, 1, 4, 5, 6, 7];
+  // //   let filteredArray = arr.filter((el) => {
+  // //     return el > 2;
+  // //   });
+
+  // //   console.log(filteredArray);
+
+  // //   let cb = (el) => {
+  // //     return el > 2; //boolean true/flase
+  // //   };
+  // Array.prototype.myFilter = function (cb) {
+  //   let result = [];
+  //   // dot operator
+  //   for (let i = 0; i < this.length; i++) {
+  //     if (cb(this[i])) {
+  //       result.push(this[i]);
+  //     }
+  //   }
+  //   return result;
+  // };
+  // let a1 = arr.myFilter((el) => {
+  //   return el > 2;
+  // });
+  // console.log(a1);
+  // ---------------------------------------------
+  //   let arr = new Array(5);
+  //   arr.myFunction();
+  //   console.log(arr);
+
+  let arr = [0, 1, 4, 5, 6, 7];
+
+  //   let op = arr.map((el) => {
+  //     return el + 1;
+  //   });
+
+  Array.prototype.myMap = function (cb) {
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+      let val = cb(this[i]);
+      console.log(val);
+      result.push(val);
+    }
+    return result;
+  };
+
+  let op = arr.myMap((el) => {
+    return el + 1;
+  });
+  console.log(op);
+
+  // try this keyword at different scenarios
+  // tell me tomorrow in how mant scenarios have you tried?
+</script>

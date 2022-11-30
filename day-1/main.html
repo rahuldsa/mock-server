@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" id="product_info" onsubmit="addData(event)">
+      <input type="text" id="name" placeholder="Name" />
+      <input type="text" id="image" placeholder="Image" />
+      <input type="submit" value="Add Data" />
+    </form>
+  </body>
+</html>
+
+<script>
+  // 1.requirement
+  // 2.resources/knowledge
+  // 3.use the resources effectively
+
+  /*
+    user: many (Flipkart):- array of objects [u1,u2...]
+    client: 1 user:-[u]
+    let u = {
+        name:"ram",
+        address:"123"
+    }
+    */
+
+  // requirement
+
+  // 1.get the data from user
+  // 2.store the data from the database (LS)
+  // 3.display the data
+  // 4.remove the data
+
+  // d.s. : array of objects
+
+  let addData = (e) => {
+    e.preventDefault();
+
+    let form = document.getElementById("product_info");
+    // console.log(form.name);
+    let name = form.name.value;
+    let image = form.image.value;
+
+    let product = { name, image };
+
+    let data = JSON.parse(localStorage.getItem("data")) || [];
+
+    data.push(product);
+
+    localStorage.setItem("data", JSON.stringify(data));
+  };
+</script>

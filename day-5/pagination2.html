@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        margin: auto;
+        /* background-color: red; */
+        width: 50%;
+      }
+      h1 {
+        text-align: center;
+        background-color: black;
+        color: white;
+        padding: 15px;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      #buttons {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pagination</h1>
+
+    <div id="container"></div>
+    <div id="buttons"></div>
+  </body>
+</html>
+
+<script>
+  const url = `https://jsonplaceholder.typicode.com/comments`;
+
+  let getData = async (page) => {
+    let res = await fetch(url);
+    res = await res.json();
+    console.log(res);
+    append(res, page);
+  };
+  getData();
+
+  let append = (data, page) => {
+    let cont = document.getElementById("container");
+    cont.innerHTML = null;
+    let start = 10 * (page - 1);
+    let end = start + 10;
+    let per_page_data = data.slice(start, end);
+
+    per_page_data.forEach(({ id, name }) => {
+      let p = document.createElement("p");
+      p.innerText = `${id}${name}`;
+      cont.append(p);
+    });
+  };
+
+  let showButtons = (page) => {
+    let btns = document.getElementById("buttons");
+    btns.innerHTML = null;
+    let start = 1;
+    if (page > 5) {
+      start = page - 1;
+    }
+    for (let i = start; i < start + 10; i++) {
+      let b = document.createElement("button");
+      b.innerText = i;
+      b.onclick = () => {
+        getData(i);
+        showButtons(i);
+      };
+      btns.append(b);
+    }
+  };
+  showButtons(6);
+</script>

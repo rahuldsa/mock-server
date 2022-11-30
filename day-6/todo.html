@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="todo" placeholder="Enter Task" />
+    <button onclick="addTodo()">Add</button>
+    <div id="container"></div>
+  </body>
+</html>
+
+<script>
+  class Todo {
+    #todo;
+    constructor() {
+      this.#todo = [];
+    }
+    get todos() {
+      return this.#todo;
+    }
+    set todos(task) {
+      let newtask = {
+        title: task,
+        status: false,
+        id: Math.random() * 1000 + Date.now(),
+      };
+      this.#todo.push(newtask);
+    }
+    deleteTodo(index) {
+      this.#todo = this.#todo.filter(({ id }) => id !== index);
+    }
+    toggleTodo(index) {
+      this.#todo = this.#todo.map((el) => {
+        if (el.id === index) {
+          return { ...el, status: !el.status };
+        }
+      });
+    }
+  }
+  let todo = new Todo();
+  //   console.log(todo);
+
+  let addTodo = () => {
+    let task = document.getElementById("todo").value;
+    todo.todos = task;
+    console.log(todo);
+    renderDom(todo.todos);
+  };
+  let renderDom = (data) => {
+    let cont = document.getElementById("container");
+    cont.innerHTML = null;
+    data.forEach(({ title, status, id }) => {
+      let div = document.createElement("div");
+
+      let h3 = document.createElement("h3");
+      h3.innerText = title;
+
+      let p = document.createElement("p");
+      p.innerText = status;
+
+      let removeBtn = document.createElement("button");
+      removeBtn.innerText = "Remove";
+      removeBtn.onclick = () => {
+        todo.deleteTodo(id);
+        renderDom(todo.todos);
+      };
+
+      let toggleBtn = document.createElement("button");
+      toggleBtn.innerText = "Toggle";
+      toggleBtn.onclick = () => {
+        todo.toggleTodo(id);
+        renderDom(todo.todos);
+      };
+
+      div.append(h3, p, removeBtn, toggleBtn);
+      cont.append(div);
+    });
+  };
+</script>

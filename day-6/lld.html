@@ -1,0 +1,158 @@
+<!-- Create a low level design(LLD) for a meeting room booking system.
+Description :-
+There is a private co-workspace
+which provides you space for meeting.
+In one building there are multiple floors and every floor have multiple meeting rooms.
+Every meeting room will have multiple slots
+Every slot will have start and end time
+Structure :-
+1. Slot
+- slot:[start, end];
+2. Slots
+slots: slot[]
+- add
+- delete
+- isAvailable
+- size
+3.Meeting room
+- name: string
+- capacity: number
+- slots: slots
+- availabeleSlots:[];
+- addSlots
+- deleteslots
+- isAvailable
+- setAvailableSlots
+4. Floors
+- name: string
+- meetingRooms: meetingRoom[];
+- addMeetingRoom
+- doesMeetingRoomExist
+- deleteMeetingRoom
+5.Building
+- name
+- floors: floor[]
+- addFloor
+- doesFloorExist
+- deleteFloor -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // class Room {
+  //     #type;
+  //     constructor(type){
+  //         this.#type = type;
+  //     }
+  // }
+
+  // class Sm extends Room {
+  //     constructor(type){
+  //         super(type)
+  //     }
+  // }
+
+  // class Lm extends Room {
+  //     constructor(type){
+  //         super(type)
+  //     }
+  // }
+
+  class Building {
+    #floors;
+    constructor(number) {
+      this.#floors = [];
+      this.noOfFloors = number;
+
+      for (let i = 0; i < number; i++) {
+        this.#floors[i] = new Floor(i);
+      }
+    }
+
+    newBooking(type) {
+      let avb = this.isAvailable(type);
+      console.log(avb);
+
+      if (avb) {
+        avb.room.booked = true;
+        console.log("Booked Successfully");
+      } else {
+        console.log("Booking failed");
+      }
+    }
+
+    cancel(roomNo) {
+      for (let i = 0; i < this.noOfFloors; i++) {
+        for (let j = 0; j < this.#floors[i].rooms.length; j++) {
+          if (roomNo == this.#floors[i].rooms[j].roomNo) {
+            this.#floors[i].rooms[j].booked = false;
+            console.log(this.#floors[i].rooms[j]);
+          }
+        }
+      }
+    }
+
+    isAvailable(type) {
+      for (let i = 0; i < this.noOfFloors; i++) {
+        for (let j = 0; j < this.#floors[i].rooms.length; j++) {
+          if (
+            type == this.#floors[i].rooms[j].type &&
+            !this.#floors[i].rooms[j].booked
+          ) {
+            return { floor: i, room: this.#floors[i].rooms[j] };
+          }
+        }
+      }
+      return false;
+    }
+  }
+
+  class Floor {
+    #rooms;
+    constructor(flNo) {
+      this.#rooms = [];
+      this.floorNumber = flNo;
+
+      for (let i = 0; i < 5; i++) {
+        if (i == 0 || i == 1 || i == 2 || i == 3) {
+          this.#rooms[i] = new Room("Small", i, flNo);
+        } else {
+          this.#rooms[i] = new Room("Large", i, flNo);
+        }
+      }
+    }
+    get rooms() {
+      return this.#rooms;
+    }
+  }
+
+  class Room {
+    #isBooked;
+    constructor(type, num, flNo) {
+      this.roomNo = `${flNo}-${num}`;
+      this.type = type;
+      this.#isBooked = false;
+    }
+    get booked() {
+      return this.#isBooked;
+    }
+    set booked(bool) {
+      this.#isBooked = bool;
+    }
+  }
+
+  let b1 = new Building(2);
+  b1.newBooking("Large");
+  b1.newBooking("Large");
+  b1.cancel("1-4");
+  b1.newBooking("Large");
+</script>

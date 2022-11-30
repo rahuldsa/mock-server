@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #articles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: auto;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+        color: cornflowerblue;
+      }
+      #sort {
+        text-align: center;
+      }
+      #sort button {
+        height: 6vh;
+        font-size: large;
+        color: cornflowerblue;
+        border: none;
+        background-color: wheat;
+        border-radius: 0.5rem;
+        letter-spacing: 0.1rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Articles</h1>
+    <div id="sort">
+      <button id="high">Sort High to Low</button>
+      <button id="low">Sort Low to High</button>
+    </div>
+
+    <div id="articles"></div>
+  </body>
+</html>
+
+<script>
+  let articles_div = document.getElementById("articles").value;
+  const url = `https://jsonmock.hackerrank.com/api/articles`;
+
+  //   let res = fetch(`${url}`)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  //     .finally(() => {
+  //       console.log("Finally");
+  //     });
+
+  //   let getData = async () => {
+  //     let result = [];
+  //     let res = await fetch(`${url}?page=1`);
+  //     res = await res.json();
+
+  //     for (let i = 0; i < res.data.length; i++) {
+  //       result.push(res.data[i]);
+  //     }
+  //     return result;
+  //   };
+
+  //   getData().then((res) => {
+  //     console.log(res);
+  //   });
+
+  let arr_of_promises = [];
+  for (let i = 0; i < 5; i++) {
+    let f = fetch(`${url}?page=${i + 1}`).then((res) => res.json());
+    arr_of_promises.push(f);
+  }
+  let result;
+
+  let getData = async () => {
+    let res = await Promise.all(arr_of_promises);
+    result = [];
+    for (let i = 0; i < res.length; i++) {
+      result.push(...res[i].data);
+    }
+    console.log(result);
+    appendArticles(result);
+  };
+  getData();
+
+  function appendArticles(data) {
+    let articles_div = document.getElementById("articles");
+    articles_div.innerHTML = null;
+
+    data.forEach(function (el) {
+      let div = document.createElement("div");
+
+      let name = document.createElement("h2");
+      name.innerText = el.author;
+
+      let a_title = document.createElement("p");
+      a_title.innerText = el.title;
+
+      let num = document.createElement("p");
+      num.innerText = el.num_comments;
+
+      div.append(name, a_title, num);
+      articles_div.append(div);
+    });
+  }
+
+  document.getElementById("high").addEventListener("click", function () {
+    result.sort((a, b) => {
+      return b.num_comments - a.num_comments;
+    });
+    appendArticles(result);
+  });
+
+  document.getElementById("low").addEventListener("click", function () {
+    result.sort((a, b) => {
+      return a.num_comments - b.num_comments;
+    });
+    appendArticles(result);
+  });
+</script>
