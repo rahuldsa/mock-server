@@ -5,5 +5,11 @@
       "status": false,
       "id": "abc"
     }
+  ],
+
+  "products":[
+    {
+        "name":"jeans"
+    }
   ]
 }
